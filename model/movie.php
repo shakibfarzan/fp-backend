@@ -135,6 +135,21 @@ class Movie
         return $stmt;
     }
 
+    public function getMoviesWithFilter()
+    {
+        $sqlQuery = "SELECT
+                        id,
+                        name,
+                        releasedYear,
+                        description,
+                        poster FROM " . $this->db_table . " WHERE name = ? AND releasedYear = ?";
+        $stmt = $this->conn->prepare($sqlQuery);
+        $stmt->bindParam(1, $this->name);
+        $stmt->bindParam(2, $this->releasedYear);
+        $stmt->execute();
+        return $stmt;
+    }
+
     // UPDATE
     public function updateMovie()
     {
