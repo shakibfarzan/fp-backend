@@ -103,7 +103,8 @@ class Movie
 
     public function getMoviesByName()
     {
-        $sqlQuery = "SELECT 
+        $sqlQuery = "SELECT
+                        id, 
                         name, 
                         releasedYear, 
                         description, 
