@@ -86,7 +86,8 @@ class Movie
     // READ Movies by Released Year
     public function getMoviesByReleasedYear()
     {
-        $sqlQuery = "SELECT 
+        $sqlQuery = "SELECT
+                    id, 
                     name, 
                     releasedYear, 
                     description, 
