@@ -83,6 +83,24 @@ class Movie
         $this->poster = $dataRow['poster'];
     }
 
+    public function getPosterById()
+    {
+        $sqlQuery = 'SELECT
+                        poster
+                        FROM ' . $this->db_table . '
+                        WHERE id = ?';
+
+        $stmt = $this->conn->prepare($sqlQuery);
+
+        $stmt->bindParam(1, $this->id);
+
+        $stmt->execute();
+
+        $dataRow = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        $this->poster = $dataRow['poster'];
+    }
+
     // READ Movies by Released Year
     public function getMoviesByReleasedYear()
     {
@@ -120,15 +138,11 @@ class Movie
     // UPDATE
     public function updateMovie()
     {
-        $sqlQuery = "UPDATE
-                     " . $this->db_table . "
-                 SET
-                     name = :name, 
+        $sqlQuery = "UPDATE " . $this->db_table . " SET name = :name, 
                      releasedYear = :releasedYear, 
                      description = :description, 
-                     poster = :poster, 
-                 WHERE 
-                     id = :id";
+                     poster = :poster WHERE id = :id
+                 ";
 
         $stmt = $this->conn->prepare($sqlQuery);
 
