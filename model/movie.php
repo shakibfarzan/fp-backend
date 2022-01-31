@@ -29,6 +29,15 @@ class Movie
         return $stmt;
     }
 
+    // GET MOVIES NAMES
+    public function getMoviesNames()
+    {
+        $sqlQuery = "SELECT id, name FROM " . $this->db_table . "";
+        $stmt = $this->conn->prepare($sqlQuery);
+        $stmt->execute();
+        return $stmt;
+    }
+
     // CREATE
     public function createMovie()
     {
