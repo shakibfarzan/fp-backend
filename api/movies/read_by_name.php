@@ -12,7 +12,7 @@ $db = $database->getConnection();
 $items = new Movie($db);
 
 $items->name = isset($_GET['name']) ? $_GET['name'] : die();
-
+$items->name = '%' . $items->name . '%';
 $stmt = $items->getMoviesByName();
 $itemCount = $stmt->rowCount();
 

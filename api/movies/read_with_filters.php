@@ -13,7 +13,7 @@ $items = new Movie($db);
 
 $items->releasedYear = isset($_GET['releasedYear']) ? $_GET['releasedYear'] : die();
 $items->name = isset($_GET['name']) ? $_GET['name'] : die();
-
+$items->name = '%' . $items->name . '%';
 $stmt = $items->getMoviesWithFilter();
 $itemCount = $stmt->rowCount();
 

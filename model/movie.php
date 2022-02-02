@@ -137,7 +137,7 @@ class Movie
                         description, 
                         poster 
                         FROM " . $this->db_table . "
-                        WHERE name = ?";
+                        WHERE name LIKE ?";
         $stmt = $this->conn->prepare($sqlQuery);
         $stmt->bindParam(1, $this->name);
         $stmt->execute();
@@ -151,7 +151,7 @@ class Movie
                         name,
                         releasedYear,
                         description,
-                        poster FROM " . $this->db_table . " WHERE name = ? AND releasedYear = ?";
+                        poster FROM " . $this->db_table . " WHERE name LIKE ? AND releasedYear = ?";
         $stmt = $this->conn->prepare($sqlQuery);
         $stmt->bindParam(1, $this->name);
         $stmt->bindParam(2, $this->releasedYear);
