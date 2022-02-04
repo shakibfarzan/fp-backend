@@ -162,25 +162,40 @@ class Movie
     // UPDATE
     public function updateMovie()
     {
-        $sqlQuery = "UPDATE " . $this->db_table . " SET name = :name, 
+        $sqlQuery = '';
+        if ($this->poster) {
+            $sqlQuery = "UPDATE " . $this->db_table . " SET name = :name, 
                      releasedYear = :releasedYear, 
                      description = :description, 
                      poster = :poster WHERE id = :id
                  ";
+        } else {
+            $sqlQuery = "UPDATE " . $this->db_table . " SET name = :name, 
+            releasedYear = :releasedYear, 
+            description = :description WHERE id = :id
+        ";
+        }
+
+
 
         $stmt = $this->conn->prepare($sqlQuery);
 
         $this->name = htmlspecialchars(strip_tags($this->name));
         $this->releasedYear = htmlspecialchars(strip_tags($this->releasedYear));
         $this->description = htmlspecialchars(strip_tags($this->description));
-        $this->poster = htmlspecialchars(strip_tags($this->poster));
+        if ($this->poster) {
+            $this->poster = htmlspecialchars(strip_tags($this->poster));
+        }
         $this->id = htmlspecialchars(strip_tags($this->id));
 
         // bind data
         $stmt->bindParam(":name", $this->name);
         $stmt->bindParam(":releasedYear", $this->releasedYear);
         $stmt->bindParam(":description", $this->description);
-        $stmt->bindParam(":poster", $this->poster);
+        if ($this->poster) {
+            $stmt->bindParam(":poster", $this->poster);
+        }
+
         $stmt->bindParam(":id", $this->id);
 
         if ($stmt->execute()) {
